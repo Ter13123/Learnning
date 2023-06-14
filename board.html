@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Web Board</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .board {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .post {
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .post .title {
+      font-weight: bold;
+    }
+    .post .content {
+      margin-top: 5px;
+    }
+    .input-group {
+      margin-bottom: 10px;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+    }
+    .input-group button {
+      padding: 5px 10px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .comment {
+      margin-top: 10px;
+      padding-top: 5px;
+      border-top: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="board">
+    <div class="input-group">
+      <input type="text" id="postTitle" placeholder="Enter post title">
+      <button onclick="createPost()">Create Post</button>
+    </div>
+    <div id="postContainer"></div>
+  </div>
+
+  <script>
+    function createPost() {
+      var titleInput = document.getElementById("postTitle");
+      var title = titleInput.value.trim();
+      if (title !== "") {
+        var postContainer = document.getElementById("postContainer");
+        
+        var postDiv = document.createElement("div");
+        postDiv.classList.add("post");
+
+        var titleDiv = document.createElement("div");
+        titleDiv.classList.add("title");
+        titleDiv.innerText = title;
+
+        var contentDiv = document.createElement("div");
+        contentDiv.classList.add("content");
+
+        var commentInput = document.createElement("input");
+        commentInput.type = "text";
+        commentInput.placeholder = "Enter comment";
+
+        var commentButton = document.createElement("button");
+        commentButton.innerText = "Add Comment";
+        commentButton.onclick = function() {
+          addComment(commentInput, contentDiv);
+        };
+
+        var commentContainer = document.createElement("div");
+        commentContainer.classList.add("comment");
+
+        postDiv.appendChild(titleDiv);
+        postDiv.appendChild(contentDiv);
+        postDiv.appendChild(commentInput);
+        postDiv.appendChild(commentButton);
+        postDiv.appendChild(commentContainer);
+        postContainer.appendChild(postDiv);
+
+        titleInput.value = "";
+      }
+    }
+
+    function addComment(input, container) {
+      var comment = input.value.trim();
+      if (comment !== "") {
+        var commentDiv = document.createElement("div");
+        commentDiv.innerText = comment;
+        container.appendChild(commentDiv);
+        input.value = "";
+      }
+    }
+  </script>
+</body>
+</html>
